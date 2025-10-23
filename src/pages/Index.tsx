@@ -201,70 +201,135 @@ const Index = () => {
         </div>
       </section>
 
-      <section className="container mx-auto px-4 py-20">
-        <div className="text-center space-y-4 mb-16 animate-fade-in">
-          <div className="inline-block px-4 py-2 bg-primary/10 rounded-full text-primary font-medium text-sm">
-            Результаты
+      <section className="container mx-auto px-4 py-20 relative overflow-hidden">
+        <div className="absolute top-20 right-0 w-96 h-96 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full blur-3xl animate-float"></div>
+        <div className="absolute bottom-20 left-0 w-72 h-72 bg-gradient-to-tr from-secondary/20 to-primary/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }}></div>
+        
+        <div className="relative">
+          <div className="text-center space-y-4 mb-16 animate-fade-in">
+            <div className="inline-block px-4 py-2 bg-primary/10 rounded-full text-primary font-medium text-sm">
+              Результаты
+            </div>
+            <h2 className="font-heading font-bold text-4xl md:text-5xl">
+              Чему ты научишься
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Практические навыки, которые сразу применишь в работе
+            </p>
           </div>
-          <h2 className="font-heading font-bold text-4xl md:text-5xl">
-            Чему ты научишься
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Практические навыки, которые сразу применишь в работе
-          </p>
-        </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
-          {[
-            {
-              icon: "Figma",
-              title: "Figma Pro",
-              description: "Создавать профессиональные макеты, компоненты и дизайн-системы",
-              color: "from-purple-500 to-blue-500"
-            },
-            {
-              icon: "Search",
-              title: "UX Research",
-              description: "Проводить исследования, создавать CJM и анализировать поведение пользователей",
-              color: "from-blue-500 to-cyan-500"
-            },
-            {
-              icon: "Palette",
-              title: "UI Design",
-              description: "Разрабатывать красивые и функциональные интерфейсы с вниманием к деталям",
-              color: "from-pink-500 to-rose-500"
-            },
-            {
-              icon: "Layout",
-              title: "Прототипирование",
-              description: "Создавать интерактивные прототипы и проводить юзабилити-тестирование",
-              color: "from-orange-500 to-amber-500"
-            },
-            {
-              icon: "Layers",
-              title: "Дизайн-системы",
-              description: "Разрабатывать масштабируемые системы для крупных продуктов",
-              color: "from-green-500 to-emerald-500"
-            },
-            {
-              icon: "Briefcase",
-              title: "Портфолио",
-              description: "Оформлять кейсы и презентовать свои проекты работодателям",
-              color: "from-indigo-500 to-purple-500"
-            }
-          ].map((skill, idx) => (
-            <Card 
-              key={idx} 
-              className="p-6 hover:shadow-xl transition-all hover:-translate-y-2 animate-scale-in group"
-              style={{ animationDelay: `${idx * 100}ms` }}
-            >
-              <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${skill.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                <Icon name={skill.icon as any} size={28} className="text-white" />
+          <div className="grid md:grid-cols-3 gap-8 mb-16">
+            {[
+              {
+                icon: "Figma",
+                title: "Figma Pro",
+                description: "Создавать профессиональные макеты, компоненты и дизайн-системы",
+                color: "from-purple-500 to-blue-500",
+                shape: "rounded-3xl rotate-3"
+              },
+              {
+                icon: "Search",
+                title: "UX Research",
+                description: "Проводить исследования, создавать CJM и анализировать поведение пользователей",
+                color: "from-blue-500 to-cyan-500",
+                shape: "rounded-3xl -rotate-2"
+              },
+              {
+                icon: "Palette",
+                title: "UI Design",
+                description: "Разрабатывать красивые и функциональные интерфейсы с вниманием к деталям",
+                color: "from-pink-500 to-rose-500",
+                shape: "rounded-3xl rotate-2"
+              },
+              {
+                icon: "Layout",
+                title: "Прототипирование",
+                description: "Создавать интерактивные прототипы и проводить юзабилити-тестирование",
+                color: "from-orange-500 to-amber-500",
+                shape: "rounded-3xl -rotate-1"
+              },
+              {
+                icon: "Layers",
+                title: "Дизайн-системы",
+                description: "Разрабатывать масштабируемые системы для крупных продуктов",
+                color: "from-green-500 to-emerald-500",
+                shape: "rounded-3xl rotate-1"
+              },
+              {
+                icon: "Briefcase",
+                title: "Портфолио",
+                description: "Оформлять кейсы и презентовать свои проекты работодателям",
+                color: "from-indigo-500 to-purple-500",
+                shape: "rounded-3xl -rotate-2"
+              }
+            ].map((skill, idx) => (
+              <div key={idx} className="relative group">
+                <div className={`absolute inset-0 bg-gradient-to-br ${skill.color} opacity-20 blur-xl ${skill.shape} group-hover:opacity-30 transition-opacity`}></div>
+                <Card 
+                  className={`relative p-8 hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 animate-scale-in group bg-white/80 backdrop-blur-sm border-2 hover:border-primary/50 ${skill.shape}`}
+                  style={{ animationDelay: `${idx * 100}ms` }}
+                >
+                  <div className="relative mb-6">
+                    <div className={`absolute inset-0 bg-gradient-to-br ${skill.color} ${skill.shape} blur-md opacity-50`}></div>
+                    <div className={`relative w-20 h-20 ${skill.shape} bg-gradient-to-br ${skill.color} flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-300`}>
+                      <Icon name={skill.icon as any} size={36} className="text-white" />
+                    </div>
+                  </div>
+                  <h3 className="font-heading font-bold text-2xl mb-3">{skill.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed">{skill.description}</p>
+                  
+                  <div className={`absolute -bottom-2 -right-2 w-16 h-16 bg-gradient-to-br ${skill.color} rounded-full opacity-10 group-hover:opacity-20 transition-opacity`}></div>
+                </Card>
               </div>
-              <h3 className="font-heading font-bold text-xl mb-2">{skill.title}</h3>
-              <p className="text-muted-foreground text-sm">{skill.description}</p>
-            </Card>
-          ))}
+            ))}
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-12 items-center mt-20">
+            <div className="relative">
+              <div className="absolute -inset-8 bg-gradient-to-br from-primary/20 via-accent/20 to-secondary/20 rounded-3xl blur-3xl"></div>
+              <img 
+                src="https://cdn.poehali.dev/projects/2e64ba3a-1309-4469-b2af-d6e34cd6270b/files/eaeb0c08-f553-4c98-af91-24f1515941b4.jpg"
+                alt="Design Skills"
+                className="relative rounded-3xl w-full shadow-2xl animate-float"
+              />
+              <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-accent rounded-full blur-2xl opacity-60 animate-pulse"></div>
+            </div>
+
+            <div className="space-y-6">
+              <div className="inline-block p-4 bg-gradient-to-br from-primary to-secondary rounded-2xl animate-scale-in">
+                <Icon name="Award" size={48} className="text-white" />
+              </div>
+              <h3 className="font-heading font-bold text-3xl md:text-4xl">
+                Реальные проекты<br />в твоём портфолио
+              </h3>
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                Каждый модуль завершается созданием полноценного проекта. К концу курса у тебя будет 
+                <span className="font-bold text-primary"> портфолио из 6+ кейсов</span>, которое впечатлит любого работодателя.
+              </p>
+              
+              <div className="grid grid-cols-2 gap-4 pt-4">
+                <div className="p-4 rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20">
+                  <div className="font-heading font-bold text-3xl text-primary mb-1">6+</div>
+                  <div className="text-sm text-muted-foreground">проектов в портфолио</div>
+                </div>
+                <div className="p-4 rounded-2xl bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/20">
+                  <div className="font-heading font-bold text-3xl text-accent mb-1">100%</div>
+                  <div className="text-sm text-muted-foreground">практических заданий</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-20 relative">
+            <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-full h-full">
+              <img 
+                src="https://cdn.poehali.dev/projects/2e64ba3a-1309-4469-b2af-d6e34cd6270b/files/45c2fb10-5b3a-4f69-9421-7861fc8634c9.jpg"
+                alt="Shapes"
+                className="w-full h-full object-contain opacity-20 animate-float"
+                style={{ animationDuration: '5s' }}
+              />
+            </div>
+          </div>
         </div>
       </section>
 
